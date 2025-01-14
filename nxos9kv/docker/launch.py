@@ -42,7 +42,7 @@ class NXOS9K_vm(vrnetlab.VM):
         # so must initialize the other parameters first
         self.bios = bios
         self.prompted = False
-        super().__init__(username, password, disk_image=disk_image, ram=8192)
+        super().__init__(username, password, disk_image=disk_image, ram=24576)
         self.num_nics = num_nics
         self.credentials = [
                 ['admin', 'Cisco1234']

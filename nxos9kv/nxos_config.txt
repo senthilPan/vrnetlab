@@ -1,5 +1,8 @@
-hostname nexus-switch
+hostname n9kv
+feature bash-shell
 username admin password Cisco1234
+vrf context management
+  ip route 0.0.0.0/0 10.0.0.2
 interface mgmt0
   vrf member management
   ip address 10.0.0.15/24
