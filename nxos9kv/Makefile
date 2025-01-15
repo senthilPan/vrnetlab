@@ -11,6 +11,5 @@ VERSION=$(shell echo $(IMAGE) | sed -e 's/^.*\.\([0-9]\+\.[0-9]\+\.[0-9]\+\).*qc
 -include ../makefile.include
 
 docker-pre-build::
-	apt-get update -qy && apt-get install -y rpm2cpio
 	python3 fetchbiosimage.py
 	cp OVMF-pure-efi.fd nxos_config.txt docker
