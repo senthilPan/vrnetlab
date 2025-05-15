@@ -42,7 +42,7 @@ class NXOS9K_vm(vrnetlab.VM):
         # so must initialize the other parameters first
         self.bios = bios
         self.prompted = False
-        super().__init__(username, password, disk_image=disk_image, ram=24576)
+        super().__init__(username, password, disk_image=disk_image, ram=32768)
         self.num_nics = num_nics
         self.credentials = [
                 ['admin', 'Cisco1234']
@@ -51,7 +51,8 @@ class NXOS9K_vm(vrnetlab.VM):
 
     def create_overlay_image(self):
         pre_start_cmds, _ = super().create_overlay_image()
-        extended_args = ['-nographic', '-bios', self.bios, '-smp', '2']
+        # use 4 vCPUs
+        extended_args = ['-nographic', '-bios', self.bios, '-smp', '4']
         # use SATA driver for disk and set to drive 0
         extended_args.extend(['-device', 'ahci,id=ahci0,bus=pci.0',
             '-drive', 'if=none,file=%s,id=drive-sata-disk0,format=qcow2' % self.overlay_disk_image,
@@ -131,6 +132,7 @@ class NXOS9K_vm(vrnetlab.VM):
         self.wait_write("netconf sessions 10")
         self.wait_write("exit")
         self.wait_write("copy running-config startup-config")
+        self.tn.close()
 
 
 class NXOS9K(vrnetlab.VR):
@@ -160,6 +162,8 @@ def main():
     logger.setLevel(logging.DEBUG)
     if args.trace:
         logger.setLevel(1)
+    # enable trace always
+    logger.setLevel(1)
 
     vr = NXOS9K(args.bios, args.username, args.password, args.num_nics)
     vr.start()
