@@ -52,7 +52,7 @@ class NXOS9K_vm(vrnetlab.VM):
     def create_overlay_image(self):
         pre_start_cmds, _ = super().create_overlay_image()
         # use 4 vCPUs
-        extended_args = ['-nographic', '-bios', self.bios, '-smp', '4']
+        extended_args = ["-cpu", "host,level=9", '-nographic', '-bios', self.bios, '-smp', '4']
         # use SATA driver for disk and set to drive 0
         extended_args.extend(['-device', 'ahci,id=ahci0,bus=pci.0',
             '-drive', 'if=none,file=%s,id=drive-sata-disk0,format=qcow2' % self.overlay_disk_image,

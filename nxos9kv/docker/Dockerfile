@@ -10,6 +10,8 @@ RUN apt-get update -qy \
     iproute2 \
     python3-ipy \
     socat \
+    telnet \
+    ssh \
     qemu-kvm \
  && rm -rf /var/lib/apt/lists/*
 
