@@ -41,5 +41,9 @@ if os.path.exists("./OVMF-pure-efi.fd"):
     sys.exit(0)
 
 # fetch the x64 bios file
-url = "https://www.kraxel.org/repos/jenkins/edk2/"
-download_file_from_index(url)
+#url = "https://www.kraxel.org/repos/jenkins/edk2/"
+#download_file_from_index(url)
+cmd = "wget https://retrage.github.io/edk2-nightly/bin/RELEASEX64_OVMF.fd"
+os.system(cmd)
+os.system("cp RELEASEX64_OVMF.fd OVMF-pure-efi.fd")
+sys.exit(0)
